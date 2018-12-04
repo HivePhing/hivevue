@@ -65,7 +65,7 @@
 
                             <div class="f-detail">
                                 <div class="col-md-2">
-                                    <img :src="'http://www.hivephing.com/companies/public/users/entro/photo/'+com_data.logo"
+                                    <img :src="'http://www.hivephing.com/companies/users/entro/photo/'+com_data.logo"
                                          class="img-circle" alt="Logo Image" width="100" height="100">
                                 </div>
                                 <div class="col-md-10" style="word-wrap:break-word;">
@@ -279,7 +279,7 @@ Aluminium လုပ္ငန္း</span>
             console.log(this.$route.params.fr);
             return axios({
                     method: 'get',
-                    url: 'http://localhost/constructback/api/dashboard/comdetail/' + this.$route.params.fr + '?token=' + localStorage.getItem('token'),
+                    url: 'http://www.hivephing.com/constructback/api/dashboard/comdetail/' + this.$route.params.fr + '?token=' + localStorage.getItem('token'),
                     headers: {
                         'Content-type': 'application/json'
                     }

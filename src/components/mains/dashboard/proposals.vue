@@ -321,10 +321,10 @@
             },
             download: function (dwn_file) {
 
-                var url = window.URL.createObjectURL(new Blob(['http://www.hivephing.com/constructback/public/user_attachments/'+dwn_file]));
+                var url = window.URL.createObjectURL(new Blob(['http://www.hivephing.com/constructback/public/user_attachments/' + dwn_file]));
                 console.log(dwn_file);
                 var link = document.createElement('a');
-                link.href ='http://www.hivephing.com/constructback/public/user_attachments/'+dwn_file;
+                link.href = 'http://www.hivephing.com/constructback/public/user_attachments/' + dwn_file;
                 link.setAttribute('download', dwn_file); //or any other extension
                 document.body.appendChild(link);
                 link.click();
@@ -377,7 +377,7 @@
             var self = this;
             return axios({
                 method: 'get',
-                url: 'http://www.hivephing.com/constructback/api/dashboard/fr/proposals?token=' + localStorage.getItem('token'),
+                url: 'http://localhost/constructback/api/dashboard/fr/proposals?token=' + localStorage.getItem('token'),
                 headers: {
                     'Content-type': 'application/json'
                 }
@@ -385,12 +385,8 @@
                 console.log(response.data.success);
                 self.repairdata = _.orderBy(response.data.data, ['id'], ['desc'])
                 console.log(response.data.data);
-
             });
-
         },
-
-
     }
 
 </script>

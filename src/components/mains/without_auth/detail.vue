@@ -164,7 +164,6 @@
                                                 <th class="text-center"> {{$lang.main.Message.No}}</th>
                                                 <th class="text-center">{{$lang.main.proposal_form.name}}</th>
                                                 <th class="text-center"> {{$lang.main.Message.detail}}</th>
-
                                                 <th class="text-center"> {{$lang.main.project_detail.Date}}</th>
                                                 <th class="text-center"> Actions</th>
                                             </tr>

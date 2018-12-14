@@ -21,8 +21,6 @@ export default new Router({
         {path: '/dashboard/:ftype/:fr/:user_id?', component: Headerv},
         {path: '/dashboard/mails', component: Mails},
         {path: '/project_detail/:user_id/:id', component: withoutauth},
-
         {path: '/*', component: Notfound},
-
     ]
 });

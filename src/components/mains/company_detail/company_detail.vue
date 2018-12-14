@@ -174,7 +174,7 @@ Aluminium လုပ္ငန္း</span>
                                 </div>
                                 <div class="m-portlet__body" >
                                     <div class="col-sm-4" style="float:left;height: 166px;">
-                                        <img v-bind:src="'http://localhost/companies/public/users/entro/photo/portfolio/'+data.photo" width="152" style=" vertical-align: text-top;float:left;margin:9px;">
+                                        <img v-bind:src="'http://www.hivephing.com/companies/users/entro/photo/portfolio/'+data.photo" width="152" style=" vertical-align: text-top;float:left;margin:9px;">
                                     </div>
 
                                     <div style="word-wrap: break-word;height:189px;">

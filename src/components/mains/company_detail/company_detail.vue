@@ -198,12 +198,9 @@ Aluminium လုပ္ငန္း</span>
                                 </div>
                                 <div class="m-portlet__body">
                                     <div class="col-sm-4" style="float:left;height: 166px;">
-<<<<<<<
-                                        <img v-bind:src="'http://www.hivephing.com/companies/users/entro/photo/portfolio/'+data.photo" width="152" style=" vertical-align: text-top;float:left;margin:9px;">
-=======
+
                                         <img v-bind:src="'http://www.hivephing.com/companies/public/users/entro/photo/portfolio/'+data.photo"
                                              width="152" style=" vertical-align: text-top;float:left;margin:9px;">
->>>>>>>
                                     </div>
 
                                     <div style="word-wrap: break-word;height:189px;">
@@ -364,7 +361,6 @@ Aluminium လုပ္ငန္း</span>
                 self.facebook = response.data.data.facebook;
                 self.rate = response.data.data.rate;
                 self.check_invite = response.data.data.check;
-
                 self.rate_sign = response.data.data.rate_sign;
                 self.port = response.data.port;
                 console.log(response.data);

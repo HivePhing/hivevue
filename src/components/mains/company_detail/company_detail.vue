@@ -2,9 +2,7 @@
     <div id="content-bg"
          class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body col-sm-12"
          style="height:auto;min-height:955px;">
-
         <div class="m-grid__item m-grid__item--fluid m-wrapper">
-
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
@@ -47,10 +45,11 @@
                 </button>
             </div>
 
+
             <div class="m-content">
-
-
                 <div class="col-md-10 col-md-offset-1" id="detail">
+                    <template v-if="alert=='true'">
+                    </template>
 
                     <h1 class="other-h"> {{com_data.name}} company's အခ်က္အလက္
                     </h1>
@@ -111,11 +110,11 @@
                                     Business Type :
                                     <span v-if="com_data.business_hub==1">ေရလိုင္း</span>
                                     <span v-if="com_data.business_hub==2">
-မီးလိုင္း</span>
+                                     မီးလိုင္း
+                                    </span>
                                     <span v-if="com_data.business_hub==3">လွ်ပ္စစ္သြယ္တန္းျခင္း</span>
                                     <span v-if="com_data.business_hub==4">Air-con တပ္ဆင္ျခင္း</span>
-                                    <span v-if="com_data.business_hub==5">
-Aluminium လုပ္ငန္း</span>
+                                    <span v-if="com_data.business_hub==5">Aluminium လုပ္ငန္း</span>
                                     <span v-if="com_data.business_hub==6">Painting</span>
                                     <span v-if="com_data.business_hub==7">ကမ္းခင္း/ ပါေကးခင္းျခင္း</span>
                                     <span v-if="com_data.business_hub==8">CCTV ႏွင့္ လံုျခံဳေရးပစၥည္းမ်ား တပ္ဆင္ျခင္း</span>
@@ -125,18 +124,32 @@ Aluminium လုပ္ငန္း</span>
                                 <div class="col-md-6">
                                     Website Link : <span><a :href="website" style="word-wrap: break-word;">{{com_data.website}}</a></span>
                                 </div>
+                                <template v-if="alert == false">
                                 <template v-if="detail_type=='rq'">
-                                    <a href="" class="btn btn-info m--pull-right" @click.prevent="activity()">
+                                    <a href="" class="btn btn-info m--pull-right"
+                                       @click.prevent="gotoconfirm(con_id=com_data.user_id)">
                                         Confirm
                                     </a>
                                 </template>
-                                <template v-if=" check_invite==false">
-                                    <a href="" class="btn btn-info m--pull-right" @click.prevent="gotoinvite()">
-                                        Invite
+                                </template>
+                                <template v-if="alert ==true">
+                                <template v-if="detail_type=='rq'">
+                                    <a href="" class="btn btn-success m--pull-right"
+                                      disabled="disabled">
+                                        Confirmed
                                     </a>
                                 </template>
+                                </template>
+                                <template v-if="detail_type != 'rq'">
+                                    <template v-if="check_invite==false">
+                                        <a href="" class="btn btn-info m--pull-right" @click.prevent="gotoinvite()">
+                                            Invite
+                                        </a>
+                                    </template>
+                                </template>
                                 <template v-if="check_invite==true">
-                                    <a href="" class="btn btn-success m--pull-right" @click.prevent="gotoinvite()" disabled>
+                                    <a href="" class="btn btn-success m--pull-right" @click.prevent="gotoinvite()"
+                                       disabled>
                                         Invited
                                     </a>
                                 </template>
@@ -167,7 +180,7 @@ Aluminium လုပ္ငန္း</span>
                             :list="port"
                             :per="6"
                     >
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" v-for="data in paginated('ports')">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" v-for="data in paginated('ports')">
                             <!--begin::Portlet-->
                             <div class="m-portlet m-portlet--success m-portlet--head-solid-bg m-portlet--rounded "
                                  style="width:100%;">
@@ -180,14 +193,11 @@ Aluminium လုပ္ငန္း</span>
                                                  {{data.project_name}}
                                         </span>
                                             <h3 class="m-portlet__head-text">
-
-
                                             </h3>
                                         </div>
                                     </div>
                                     <div class="m-portlet__head-tools">
                                         <ul class="m-portlet__nav">
-
                                             <!--<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" aria-expanded="true">-->
                                             <!--<a href="#" class="m-portlet__nav-link m-dropdown__toggle btn btn-primary m-btn m-btn--pill m-btn--air">-->
                                             <!--Read More-->
@@ -198,11 +208,9 @@ Aluminium လုပ္ငန္း</span>
                                 </div>
                                 <div class="m-portlet__body">
                                     <div class="col-sm-4" style="float:left;height: 166px;">
-
                                         <img v-bind:src="'http://www.hivephing.com/companies/public/users/entro/photo/portfolio/'+data.photo"
-                                             width="152" style=" vertical-align: text-top;float:left;margin:9px;">
+                                             width="152" style=" vertical-align: text-top;float:left;margin:9px;height:100%;">
                                     </div>
-
                                     <div style="word-wrap: break-word;height:189px;">
                                         {{data.description}}<br>
                                         {{data.address}}<br>
@@ -210,7 +218,8 @@ Aluminium လုပ္ငန္း</span>
                                             {{data.start_date}}</strong>
                                         <br>
                                         <strong style="font-weight:bold;color:#34bfa3"> End Date :
-                                            {{data.end_date}}</strong>
+                                            {{data.end_date}}
+                                        </strong>
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +248,6 @@ Aluminium လုပ္ငန္း</span>
     .noti_active {
         display: none;
     }
-
     .active {
         width: 23px;
         border-radius: 53% !important;
@@ -249,7 +257,6 @@ Aluminium လုပ္ငန္း</span>
         background: #32c5d2;
         color: white !important;
     }
-
     li {
         display: inline;
         padding: 12px;
@@ -281,16 +288,42 @@ Aluminium လုပ္ငန္း</span>
                 rate_sign: '',
                 detail_type: '',
                 isActive: true,
-                check_emp: ""
+                check_emp: "",
+                alert:'false',
             }
         },
         methods: {
+            gotoconfirm: function (con_id) {
+                var self = this;
+                return axios({
+                    method: 'post',
+                    url: 'http://www.hivephing.com/constructback/api/dashboard/confirm_project',
+                    data: {
+                        token: localStorage.getItem('token'),
+                        user_id: con_id,
+                        post_id: localStorage.getItem('postid'),
+
+                    },
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                }).then(function (response) {
+                    console.log('cc'+response.data.data);
+                if(self.alert == true){
+                self.alert =false;
+                }else{
+                self.alert = true;
+                }
+                });
+
+
+            },
             gotoinvite: function () {
                 var self = this;
                 self.rate_sign = '';
                 return axios({
                         method: 'post',
-                        url: 'http://localhost/constructback/api/dashboard/addinvite',
+                        url: 'http://www.hivephing.com/constructback/api/dashboard/addinvite',
                         data: {
                             'com_id': this.$route.params.fr,
                             'token': localStorage.getItem('token'),
@@ -308,15 +341,15 @@ Aluminium လုပ္ငန္း</span>
                     console.log(self.isActive);
                     self.check_invite = true;
 
-                });
-
-
-            },
+                })
+            }
+            ,
             close: function () {
                 console.log('ff');
                 this.isActive = true;
 
-            },
+            }
+            ,
             ratethis: function () {
                 var self = this;
                 self.rate_sign = '';
@@ -337,12 +370,15 @@ Aluminium လုပ္ငန္း</span>
                     console.log(response);
 
                 });
-            },
+            }
+            ,
             activity: function () {
                 window.location = '../activity/' + this.$route.params.fr;
             }
         },
-        created(){
+        created()
+        {
+            console.log(localStorage.getItem('postid'));
 
             var self = this;
             this.detail_type = localStorage.getItem('detail_type');
@@ -350,7 +386,7 @@ Aluminium လုပ္ငန္း</span>
             console.log(this.$route.params.fr);
             return axios({
                     method: 'get',
-                    url: 'http://localhost/constructback/api/dashboard/comdetail/' + this.$route.params.fr + '?token=' + localStorage.getItem('token') + '&postid=' + localStorage.getItem('postid'),
+                    url: 'http://www.hivephing.com/constructback/api/dashboard/comdetail/' + this.$route.params.fr + '?token=' + localStorage.getItem('token') + '&postid=' + localStorage.getItem('postid'),
                     headers: {
                         'Content-type': 'application/json'
                     }
@@ -363,7 +399,8 @@ Aluminium လုပ္ငန္း</span>
                 self.check_invite = response.data.data.check;
                 self.rate_sign = response.data.data.rate_sign;
                 self.port = response.data.port;
-                console.log(response.data);
+                self.alert=response.data.data.confirm;
+                console.log(response.data.data.confirm);
 
 //              console.log(response.data.data);
 

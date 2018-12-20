@@ -582,7 +582,7 @@
             var self = this;
             return axios({
                 method: 'get',
-                url: 'http://localhost/constructback/api/dashboard/proposals/detail/' + this.$route.params.fr + '?token=' + localStorage.getItem('token'),
+                url: 'http://www.hivephing.com/constructback/api/dashboard/proposals/detail/' + this.$route.params.fr + '?token=' + localStorage.getItem('token'),
                 headers: {
                     'Content-type': 'application/json'
                 }

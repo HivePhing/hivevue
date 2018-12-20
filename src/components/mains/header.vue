@@ -25,7 +25,6 @@
                                       <div class="m-dropdown__wrapper">
                                           <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                           <div class="m-dropdown__inner">
-
                                               <div class="m-dropdown__body">
                                                   <div class="m-dropdown__content">
                                                       <ul class="m-nav m-nav--skin-light">
@@ -81,7 +80,7 @@
 
             },
             profile:function(){
-                window.location='http://'+window.location.hostname+'/dashboard/profile/user';
+                window.location='http://'+ window.location.hostname+'/dashboard/profile/user';
 
             }
         }

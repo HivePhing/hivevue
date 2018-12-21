@@ -1,7 +1,6 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
   <div>
-
-          <div  class="m-grid__item m-header "  data-minimize-offset="200" data-minimize-mobile-offset="200" >
+        <div  class="m-grid__item m-header "  data-minimize-offset="200" data-minimize-mobile-offset="200" >
               <div class="m-container m-container--fluid m-container--full-height">
                   <div class="m-stack m-stack--ver m-stack--desktop">
 

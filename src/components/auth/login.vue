@@ -13,17 +13,13 @@
 
                 <div class="col-md-6">
                   <input id="email" type="phone" class="form-control" name="phone" v-model="phone" required autofocus>
-
                   <template v-if="status === 'vfalse'">
                     <template v-if="error.phone !== undefined">
-
                     <span class="label label-info">
                      <strong v-for="ep in error.phone">{{ep}}</strong>
                     </span>
                     </template>
-
                   </template>
-
                 </div>
               </div>
 

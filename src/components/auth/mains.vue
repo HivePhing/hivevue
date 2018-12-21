@@ -1,5 +1,7 @@
 <template>
     <div class="">
+
+
         <div class="col-xs-12 top_banner">
             <div class="top_header">
                 <div class="col-xs-4  col-sm-4 col-md-2" style="">
@@ -83,12 +85,58 @@
                 </div>
             </aside>
         </div>
+        <form>
 
-        <div class="row">
-            &nbsp;
-            &nbsp;
-            &nbsp;
-        </div>
+        <div class="col-lg-12" style="position: absolute; z-index: 1;top:422px;">
+
+            <div class="col-lg-1">
+                &nbsp;
+            </div>
+            <div class="col-lg-10" style="">
+
+                <div style="padding-left: 34%">
+                    <div class="input-group" style="float:left;">
+                        <select class="selectpicker">
+                            <optgroup label="Picnic">
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </optgroup>
+                            <optgroup label="Camping">
+                                <option>Tent</option>
+                                <option>Flashlight</option>
+                                <option>Toilet Paper</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="input-group" style="float:left;">
+                        <select class="selectpicker" style="width:322px !important;">
+                            <optgroup label="Picnic">
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </optgroup>
+                            <optgroup label="Camping">
+                                <option>Tent</option>
+                                <option>Flashlight</option>
+                                <option>Toilet Paper</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="input-group" style="width:100px;">
+                    <button type="button" class="btn btn-danger">Search</button>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-1">
+                &nbsp;
+            </div>
+            </div>
+
+        </form>
+
         <div class="col-sm-12">
 
             <div class="uni" v-if="ffonts=='unicode'">
@@ -99,7 +147,6 @@
                     <div class="col-sm-6 col-md-6 col-lg-6">
 
                         <div style="padding: 30px 85px;">
-
                         </div>
                         <div class="clearfix"></div>
                         <div id="login_letter"
@@ -661,6 +708,7 @@
     @import "../../assets/newpublic/slider/style.css";
     @import "../../assets/newpublic/slider/yankee_custom.css";
     @import "../../assets/newpublic/slider/animate.css";
+    @import "../../assets/newpublic/css/search-filter.css";
 
     @font-face {
         font-family: 'Ours-Unicode';

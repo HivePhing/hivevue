@@ -19,6 +19,7 @@ export default new Router({
         {path: '/policy', component: Policy},
         {path: '/auth/:type', component: AuthMain},
         {path: '/dashboard/:ftype/:fr/:user_id?', component: Headerv},
+        {path: '/without_auth/:com_id/:postid/:user_id?', component: withoutauth},
         {path: '/dashboard/mails', component: Mails},
         {path: '/project_detail/:user_id/:id', component: withoutauth},
         {path: '/*', component: Notfound},

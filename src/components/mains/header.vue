@@ -1,6 +1,6 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
   <div>
-
+<loader></loader>
           <div  class="m-grid__item m-header "  data-minimize-offset="200" data-minimize-mobile-offset="200" >
               <div class="m-container m-container--fluid m-container--full-height">
                   <div class="m-stack m-stack--ver m-stack--desktop">
@@ -69,6 +69,7 @@
   </div>
 </template>
 <script>
+    import Loader from '../overlay/loader.vue'
     export default{
         methods: {
             logout: function () {
@@ -83,6 +84,9 @@
                 window.location='http://'+ window.location.hostname+'/dashboard/profile/user';
 
             }
+        },
+        components:{
+            'loader':Loader
         }
     }
 </script>

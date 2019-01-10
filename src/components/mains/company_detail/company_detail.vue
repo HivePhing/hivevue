@@ -73,7 +73,7 @@
 
                             <div class="f-detail">
                                 <div class="col-md-2">
-                                    <img :src="'http://www.hivephing.com/companies/users/entro/photo/'+com_data.logo"
+                                    <img :src="'http://www.hivephing.com/companies/public/users/entro/photo/'+com_data.logo"
                                          class="img-circle" alt="Logo Image" width="100" height="100">
                                 </div>
                                 <div class="col-md-10" style="word-wrap:break-word;">
@@ -134,7 +134,7 @@
                                 </template>
                                 <template v-if="alert ==true">
                                 <template v-if="detail_type=='rq'">
-                                    <a href="" class="btn btn-success m--pull-right"
+                                    <a class="btn btn-success m--pull-right"
                                       disabled="disabled">
                                         Confirmed
                                     </a>

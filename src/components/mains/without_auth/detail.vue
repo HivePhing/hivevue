@@ -1,8 +1,9 @@
 <template>
-    <!-- BEGIN CONTENT BODY -->
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body col-sm-12" id="content-bg"
-         style="height:auto;min-height:999px;">
+    <div id="content-bg"
+         class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body col-sm-12"
+         style="height:auto;min-height:955px;">
         <div class="m-grid__item m-grid__item--fluid m-wrapper">
+            <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
                     <div class="mr-auto">
@@ -21,14 +22,12 @@
                             <li class="m-nav__separator">-</li>
                             <li class="m-nav__item">
                                 <a href="http://www.hivephing.com/dashboard/formq/all" class="m-nav__link">
-                                    <span class="m-nav__link-text"> {{$lang.main.proposals.upload_proposals}}</span>
+                                    <span class="m-nav__link-text">စံုစမ္းမည္</span>
                                 </a>
                             </li>
-                            <li class="m-nav__separator">-</li>
-
                             <li class="m-nav__item">
                                 <a href="http://www.hivephing.com/dashboard/contact/mastery" class="m-nav__link">
-                                    <span class="m-nav__link-text">{{$lang.main.proposals.contact}}</span>
+                                    <span class="m-nav__link-text">ဆက္သြယ္ရန္</span>
                                 </a>
                             </li>
                         </ul>
@@ -36,491 +35,375 @@
                 </div>
             </div>
 
+            <!-- END: Subheader -->
+            <div v-bind:class="{noti_active:isActive}" class="col-md-10 col-md-offset-1 alert alert-success"
+                 role="alert"
+                 style="text-align: center;font-size: 22px;font-weight:bolder;">
+                Successfully invited
+                <button type="button" @click="close()" class="close" aria-label="Close">
+                    Close
+                </button>
+            </div>
 
 
-            <div class="m-content" style="padding-bottom: 844px;">
+            <div class="m-content">
+                <div class="col-md-10 col-md-offset-1" id="detail">
+                    <template v-if="alert=='true'">
+                    </template>
 
-                <div style="padding-bottom: 35px;" class="row">
+                    <h1 class="other-h"> {{com_data.name}} company's အခ်က္အလက္
+                    </h1>
 
-                    <div v-if="per_close=='yes'" class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2" style="padding:22px;text-align:center;background-color:#d61f1f;font-size:22px;color:white;font-weight:bolder;">သင့္ Project အား Admin မွ ပိတ္ထားပါသျဖင့္ Admin ထံသုိ႔ ဆက္သြယ္ပါ။ Phone:09-456114442</div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            {{com_data.name}}
+                            <span>
 
+                                 <button href="" class="btn btn-success m--pull-right"
+                                         @click.prevent="ratethis(com_id=1)">
+                            Rating Point :
+                            {{rate}}
+                            <span class="fa fa-plus" v-if="rate_sign==0"></span>
+                            <span class="fa fa-minus" v-if="rate_sign==1"></span>
+                        </button>
 
-                    <div class="col-md-12" style="padding: 50px 0px;">
-                        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-                            <!--begin::Portlet-->
-                            <div class="m-portlet m-portlet--success m-portlet--head-solid-bg m-portlet--rounded">
-                                <div class="m-portlet__head">
-                                    <div class="m-portlet__head-caption">
-                                        <div class="m-portlet__head-title">
-                                        <span class="m-portlet__head-icon">
-                                          <i class="fa fa-bookmark"></i>
-                                        </span>
-                                            <h3 class="m-portlet__head-text">
-                                                {{$lang.main.project_detail.detail}}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="m-portlet__head-tools"  v-if="coro=='open'">
-                                        <ul class="m-portlet__nav">
-                                            <li class="m-portlet__nav-item">
-                                                <a href="#" class="m-btn m-btn--pill mr-2">
-                                                    <button class="m-btn btn btn-danger btn-outline-light" @click.prevent="gotoclose(close_id=detail_data.id)">
-                                                        {{$lang.main.project_detail.close}}
-                                                    </button>
+                            </span>
+                        </div>
+                        <div class="panel-body">
 
-                                                </a>
-                                            </li>
-                                            <!--<li class="m-portlet__nav-item m-dropdown m-dropdown&#45;&#45;inline m-dropdown&#45;&#45;arrow m-dropdown&#45;&#45;align-right m-dropdown&#45;&#45;align-push" aria-expanded="true">-->
-                                            <!--<a href="#" class="m-portlet__nav-link m-dropdown__toggle btn btn-primary m-btn m-btn&#45;&#45;pill m-btn&#45;&#45;air">-->
-                                            <!--Read More-->
-                                            <!--</a>-->
-                                            <!--</li>-->
-                                        </ul>
-                                    </div>
-                                    <div class="m-portlet__head-tools"  v-if="coro=='closed'">
-                                        <ul class="m-portlet__nav">
-                                            <li class="m-portlet__nav-item">
-                                                <a href="#" class="m-btn m-btn--pill mr-2">
-                                                    <button class="m-btn btn btn-outline-light" @click.prevent="gotoopen(close_id=detail_data.id)">
-                                                        {{$lang.main.project_detail.open}}
-                                                    </button>
-
-                                                </a>
-                                            </li>
-                                            <!--<li class="m-portlet__nav-item m-dropdown m-dropdown&#45;&#45;inline m-dropdown&#45;&#45;arrow m-dropdown&#45;&#45;align-right m-dropdown&#45;&#45;align-push" aria-expanded="true">-->
-                                            <!--<a href="#" class="m-portlet__nav-link m-dropdown__toggle btn btn-primary m-btn m-btn&#45;&#45;pill m-btn&#45;&#45;air">-->
-                                            <!--Read More-->
-                                            <!--</a>-->
-                                            <!--</li>-->
-                                        </ul>
-                                    </div>
+                            <div class="f-detail">
+                                <div class="col-md-2">
+                                    <img :src="'http://www.hivephing.com/companies/public/users/entro/photo/'+com_data.logo"
+                                         class="img-circle" alt="Logo Image" width="100" height="100">
                                 </div>
-
-                                <div class="m-portlet__body">
-                                    <h1 class="detail_h"> {{detail_data.name}} </h1>
-
-                                    <p style="font-size: 17px; color: #606c71;word-wrap: break-word;">
-                                        {{detail_data.description}}
-                                    </p>
-                                    <strong style="color:#67809f;"><span
-                                            style="color:#36c6d3"> {{$lang.main.project_detail.address}} </span> : </strong> {{detail_data.address}}
-
-                                    <p>
-                                        <strong style="color:#67809f;"><span
-                                                style="color:#36c6d3">City :</span>{{detail_data.cname}} </strong>
-                                        <span class="badge badge-danger">
-                                        </span>
-                                        <strong style="color:#67809f;"><span
-                                                style="color:#36c6d3">{{$lang.main.project_detail.div}} :</span>{{detail_data.sname}} </strong>
-                                        <br>
-                                        <strong style="color:#67809f;"><span
-                                                style="color:#36c6d3"> {{$lang.main.proposal_form.count_com}}:</span>{{detail_data.quotation}}
-                                        </strong> &nbsp;&nbsp;
-                                        <br>
-                                        <strong style="color:#67809f;" v-if="qtype == '1'"><span
-                                                style="color:#36c6d3">{{$lang.main.proposal_form.choose}}	:</span>Company မ်ားမွ တုိက္ရိုက္ဆက္သြယ္လာသည္ကို ေစာင့္မည္။
-                                        </strong> &nbsp;&nbsp;
-                                        <strong style="color:#67809f;" v-if="qtype == '0'"><span
-                                                style="color:#36c6d3">   {{$lang.main.proposal_form.choose}}	:</span>Hive Phing မွ ေစ်းႏႈန္း အစအဆံုး စံုစမ္းေပးျခင္းကို ေစာင့္မည္။
-                                        </strong> &nbsp;&nbsp;
-                                        <strong style="color:#67809f;">
-                                        </strong> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                        <br>
-                                        <strong style="color:#67809f;"><span
-                                                style="color:#36c6d3">Phone :</span>{{detail_data.phone}} </strong>
-
-                                        <strong style="color:#67809f;"><span
-                                                style="color:#36c6d3">{{$lang.main.project_detail.Date}} :</span>{{detail_data.created_at}}
-                                        </strong> &nbsp;&nbsp;
-                                        <strong style="color:#67809f;"> <span
-                                                style="color:#36c6d3">Status : {{status}}</span>
-                                        </strong> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                        <strong style="color:#67809f;"> <span
-                                                style="color:#36c6d3">Request Counts : {{rq_count}}</span>
-                                        </strong> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                                        <br>
-
-
-                                    </p>
-                                </div>
-                            </div>
-                            <!--end::Portlet-->
-                            <div class="clearfix" style="padding: 20px 0px;"></div>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading"> Requested Companies</div>
-                                <div class="panel-body">
-                                    <div class="col-md-6 col-md-offset-6">
-                                        <div class="btn-group pull-right">
-
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="datatable">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center"> {{$lang.main.Message.No}}</th>
-                                                <th class="text-center">{{$lang.main.proposal_form.name}}</th>
-                                                <th class="text-center"> {{$lang.main.Message.detail}}</th>
-                                                <th class="text-center"> {{$lang.main.project_detail.Date}}</th>
-                                                <th class="text-center"> Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr v-for="rq in rq_data">
-                                                <td>
-                                                    {{rq.id}}
-                                                </td>
-                                                <td>
-                                                    {{rq.name}}
-                                                </td>
-
-                                                <td>
-                                                    {{rq.description}}
-                                                </td>
-                                                <td>
-                                                    {{rq.created_at}}
-                                                </td>
-                                                <td>
-                                                    <template v-if="rq.id != undefined">
-
-                                                        <a href="#" class="btn btn-small btn-info"
-                                                           @click="gotocomdetail(cdetailid=rq.id)">See
-                                                            Company Detail</a>
-                                                    </template>
-                                                    <template v-if="rq.com_status == 'rq'">
-                                                        <a href="#" class="btn btn-small btn-info"
-                                                           @click="gotoconfirm(con_id=rq.user_id,post_id=rq.post_id)">
-                                                            Confirm</a>
-                                                    </template>
-                                                    <template v-if="rq.com_status == 'con'">
-                                                        <span class="badge  badge-pill badge-success" style="padding-top:6px;padding-bottom:6px;">Confirmed</span>
-
-                                                    </template>
-                                                </td>
-                                            </tr>
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="col-md-10" style="word-wrap:break-word;">
+                                    {{com_data.description}}
                                 </div>
                             </div>
 
-                            <div class="clearfix" style="padding: 20px 0px;"></div>
+                            <div class="clearfix"></div>
 
-                            <div class="panel panel-info">
-                                <div class="panel-heading">ရရွိေသာ စာမ်ား</div>
-                                <div class="panel-body">
-                                    <div class="col-md-6 col-md-offset-6">
-                                        <div class="btn-group pull-right">
-
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="datatable">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center"> {{$lang.main.Message.No}}</th>
-                                                <th class="text-center"> {{$lang.main.Message.detail}}</th>
-                                                <th class="text-center"> {{$lang.main.Message.Sender_Com}}</th>
-                                                <th class="text-center"> Send</th>
-                                                <th class="text-center"> {{$lang.main.project_detail.Date}}</th>
-                                                <th class="text-center"> Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            <tr v-for="ms in message">
-                                                <td>
-                                                    {{ms.id}}
-                                                </td>
-                                                <td>
-                                                    {{ms.message | strcat}}
-                                                </td>
-
-                                                <td>
-                                                    {{ms.com_name}}
-                                                </td>
-
-                                                <td>
-                                                    {{ms.from_user}}
-                                                </td>
-
-
-                                                <td>
-                                                    {{ms.created_at}}
-                                                </td>
-                                                <td>
-
-                                                    <a href="#" class="btn btn-small btn-success"
-                                                       @click.prevent="gotosend(com_id=ms.com_id,post_id=ms.post_id)"
-                                                       v-if="btm=='dd'">Send</a>
-                                                    <a href="#" class="btn btn-small btn-info"
-                                                       @click="gotocomdetail(cdetailid=ms.com_id)" v-if="btm=='dd'">See
-                                                        Company Detail</a>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <div class="col-md-12" style="margin-top: 80px;">
+                                <div class="col-md-6">
+                                    Looking for Investment : <i class="fa fa-close" style="color:darkred;"
+                                                                v-if="com_data.investment == '0'"></i>
+                                    <i class="fa fa-check" style="color:#32c5d2;" v-if="com_data.investment == '1'"></i>
                                 </div>
-                            </div>
 
-                            <div class="clearfix" style="padding: 20px 0px;"></div>
+                                <div class="col-md-6">
+                                    Registration Status : <i class="fa fa-check" style="color:#32c5d2;"
+                                                             v-if="com_data.registration_status == '0'"></i>
+                                    <i class="fa fa-check" style="color:#32c5d2;"
+                                       v-if="com_data.registration_status == '1'"></i>
+                                </div>
 
-                            <div class="panel panel-info">
-                                <div class="panel-heading">  ေပးပို႔ေသာ စာမ်ား</div>
-                                <div class="panel-body">
-                                    <div class="col-md-6 col-md-offset-6">
-                                        <div class="btn-group pull-right">
+                                <div class="col-md-6">
+                                    City : {{com_data.city_name}}
 
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
+                                </div>
 
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="datatable">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center"> {{$lang.main.Message.No}}</th>
-                                                <th class="text-center"> {{$lang.main.Message.detail}}</th>
-                                                <th class="text-center">{{$lang.main.Message.Received_com}}</th>
-                                                <th class="text-center"> Send By</th>
-                                                <th class="text-center"> {{$lang.main.project_detail.Date}}</th>
-                                                <th class="text-center"> Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
+                                <div class="col-md-6">
+                                    Country : Myanmar
+                                </div>
 
-                                            <tr v-for="rms in rmessage">
-                                                <td>
-                                                    {{rms.id}}
-                                                </td>
-                                                <td>
-                                                    {{rms.message | strcat}}
-                                                </td>
-                                                <td>
-                                                    {{rms.com_name}}
-                                                </td>
-                                                <td>
-                                                    {{rms.from_user}}
-                                                </td>
+                                <div class="col-md-6">
+                                    Business Type :
+                                    <span v-if="com_data.business_hub==1">ေရလိုင္း</span>
+                                    <span v-if="com_data.business_hub==2">
+                                     မီးလိုင္း
+                                    </span>
+                                    <span v-if="com_data.business_hub==3">လွ်ပ္စစ္သြယ္တန္းျခင္း</span>
+                                    <span v-if="com_data.business_hub==4">Air-con တပ္ဆင္ျခင္း</span>
+                                    <span v-if="com_data.business_hub==5">Aluminium လုပ္ငန္း</span>
+                                    <span v-if="com_data.business_hub==6">Painting</span>
+                                    <span v-if="com_data.business_hub==7">ကမ္းခင္း/ ပါေကးခင္းျခင္း</span>
+                                    <span v-if="com_data.business_hub==8">CCTV ႏွင့္ လံုျခံဳေရးပစၥည္းမ်ား တပ္ဆင္ျခင္း</span>
+                                    <span v-if="com_data.business_hub==9">အေဆာက္အဦးေဆာက္လုပ္ျခင္း</span>
+                                </div>
 
-                                                <td>
-                                                    {{rms.created_at}}
-                                                </td>
-                                                <td>
-                                                    <!--<div class="btn-group" v-if="rms.com_name != null">-->
-                                                    <!--<button type="button" class="btn green dropdown-toggle"-->
-                                                    <!--data-toggle="dropdown">View <i-->
-                                                    <!--class="fa fa-angle-down"></i></button>-->
-                                                    <!--</div>-->
-                                                </td>
-                                            </tr>
-                                            </tr>
+                                <div class="col-md-6">
+                                    Website Link : <span><a :href="website" style="word-wrap: break-word;">{{com_data.website}}</a></span>
+                                </div>
+                                <template v-if="alert == false">
+                                        <a href="" class="btn btn-info m--pull-right"
+                                           @click.prevent="gotoconfirm(con_id=com_data.user_id)">
+                                            Confirm
+                                        </a>
+                                </template>
+                                <template v-if="alert ==true">
+                                        <a class="btn btn-success m--pull-right"
+                                           disabled="disabled">
+                                            Confirmed
+                                        </a>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                </template>
+
+                                <div class="col-md-6">
+                                    Facebook Link : <a :href="facebook" style="word-wrap: break-word;">{{facebook}}</a>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
+
+
             </div>
+
+            <div class="m-content" style="padding-bottom: 844px;">
+                <div class="col-xs-12">
+                    <paginate-links for="ports" class="col-md-12"
+                                    :async="true"
+                                    :limit="8"
+                                    :show-step-links="true"
+
+                    >
+                    </paginate-links>
+                    <paginate
+                            name="ports"
+                            :list="port"
+                            :per="6"
+                    >
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" v-for="data in paginated('ports')">
+                            <!--begin::Portlet-->
+                            <div class="m-portlet m-portlet--success m-portlet--head-solid-bg m-portlet--rounded "
+                                 style="width:100%;">
+
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <span class="m-portlet__head-icon">
+                                            <i class="fa fa-bookmark"></i>
+                                                 {{data.project_name}}
+                                        </span>
+                                            <h3 class="m-portlet__head-text">
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav">
+                                            <!--<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" aria-expanded="true">-->
+                                            <!--<a href="#" class="m-portlet__nav-link m-dropdown__toggle btn btn-primary m-btn m-btn--pill m-btn--air">-->
+                                            <!--Read More-->
+                                            <!--</a>-->
+                                            <!--</li>-->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="m-portlet__body">
+                                    <div class="col-sm-4" style="float:left;height: 166px;">
+                                        <img v-bind:src="'http://www.hivephing.com/companies/public/users/entro/photo/portfolio/'+data.photo"
+                                             width="152"
+                                             style=" vertical-align: text-top;float:left;margin:9px;height:100%;">
+                                    </div>
+                                    <div style="word-wrap: break-word;height:189px;">
+                                        {{data.description}}<br>
+                                        {{data.address}}<br>
+                                        <strong style="font-weight:bold;color:#34bfa3"> Start Date :
+                                            {{data.start_date}}</strong>
+                                        <br>
+                                        <strong style="font-weight:bold;color:#34bfa3"> End Date :
+                                            {{data.end_date}}
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Portlet-->
+                        </div>
+
+                    </paginate>
+
+                    <paginate-links for="ports" class="col-md-12"
+                                    :async="true"
+                                    :limit="8"
+                                    :show-step-links="true"
+                    >
+                    </paginate-links>
+
+                </div>
+            </div>
+
         </div>
+        <br>
 
 
     </div>
-    <!-- END CONTENT -->
-    <!-- BEGIN QUICK SIDEBAR -->
 </template>
+<style>
+    .noti_active {
+        display: none;
+    }
+
+    .active {
+        width: 23px;
+        border-radius: 53% !important;
+        color: white !important;
+        text-align: center;
+        color: blue;
+        background: #32c5d2;
+        color: white !important;
+    }
+
+    li {
+        display: inline;
+        padding: 12px;
+    }
+
+    @media screen and (max-width: 42em) {
+        .for_this_btn {
+            display: block;
+            width: 48%;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            float: left;
+        }
+    }
+</style>
 <script>
     import axios from 'axios'
     export default{
         data(){
             return {
-                detail_data: "",
-                status: '',
-                message: [],
-                rmessage: [],
+                com_data: '',
+                website: '',
+                port: [],
+                paginate: ['ports'],
+                facebook: '',
+                rate: '',
+                check_invite: '',
                 com_id: '',
-                post_id: '',
-                cdetailid: '',
-                con_id:'',
-                post_id:'',
-                btm: '',
-                close_id:'',
-                coro:'',
-                qtype:'',
-                per_close:'',
-                rq_count:'',
-                rq_data:[],
-
+                rate_sign: '',
+                detail_type: '',
+                isActive: true,
+                check_emp: "",
+                alert: 'false',
+                ftoken: '',
             }
-        }
-        ,
+        },
         methods: {
-            gotoconfirm:function(con_id,post_id){
-                console.log('user'+con_id  + 'post'+post_id);
+            gotoconfirm: function (con_id) {
                 var self = this;
                 return axios({
                     method: 'post',
                     url: 'http://www.hivephing.com/constructback/api/dashboard/confirm_project',
-                    data:{
-                        token:localStorage.getItem('token'),
-                        user_id:con_id,
-                        post_id:post_id,
-
+                    data: {
+                        token: self.ftoken,
+                        user_id: con_id,
+                        post_id: self.$route.params.postid,
                     },
                     headers: {
                         'Content-type': 'application/json'
                     }
                 }).then(function (response) {
-                    var self=this;
-                    console.log(response.data);
-                    window.location = '../detail/' + response.data.data;
-
-
+                    console.log('cc' + response.data.data);
+                    if (self.alert == true) {
+                        self.alert = false;
+                    } else {
+                        self.alert = true;
+                    }
                 });
 
+
             },
-            gotoclose:function(close_id){
+            gotoinvite: function () {
                 var self = this;
-                self.coro='';
+                self.rate_sign = '';
                 return axios({
-                    method: 'post',
-                    url: 'http://www.hivephing.com/constructback/api/dashboard/proposals/close_project',
-                    data:{
-                        token:localStorage.getItem('token'),
-                        id:close_id,
-
-                    },
-                    headers: {
-                        'Content-type': 'application/json'
+                        method: 'post',
+                        url: 'http://www.hivephing.com/constructback/api/dashboard/addinvite',
+                        data: {
+                            'com_id': this.$route.params.fr,
+                            'token': self.ftoken,
+                            'postid': localStorage.getItem('postid')
+                        },
+                        headers: {
+                            'Content-type': 'application/json'
+                        }
                     }
-                }).then(function (response) {
-                    console.log(response.data.data);
+                ).then(function (response) {
+                    console.log(response);
+                    if (response.data != '') {
+                        self.isActive = false;
+                    }
+                    console.log(self.isActive);
+                    self.check_invite = true;
 
-                    self.coro='closed';
-                });
+                })
+            }
+            ,
+            close: function () {
+                console.log('ff');
+                this.isActive = true;
 
-            },
-            gotoopen:function(close_id){
+            }
+            ,
+            ratethis: function () {
                 var self = this;
-                self.coro='';
-                self.per_close='';
+                self.rate_sign = '';
                 return axios({
-                    method: 'post',
-                    url: 'http://www.hivephing.com/constructback/api/dashboard/proposals/open_project',
-                    data:{
-                        token:localStorage.getItem('token'),
-                        id:close_id,
-
-                    },
-                    headers: {
-                        'Content-type': 'application/json'
+                        method: 'post',
+                        url: 'http://www.hivephing.com/constructback/api/dashboard/addrate',
+                        data: {
+                            'com_id': self.com_id,
+                            'token': self.ftoken,
+                        },
+                        headers: {
+                            'Content-type': 'application/json'
+                        }
                     }
-                }).then(function (response) {
-                    console.log(response.data.data);
-                    if(response.data.data == 'open') {
-                        self.coro = 'open';
-                    }else
-                    {
-                        self.coro='closed';
+                ).then(function (response) {
+                    self.rate = response.data.rate;
+                    self.rate_sign = response.data.rate_sign;
+                    console.log(response);
 
-                        self.per_close='yes';
-                        console.log( self.coro);
-                    }
                 });
-            },
-            gotosend: function (com_id, post_id) {
-                localStorage.setItem('com_id', com_id);
-                localStorage.setItem('post_id', post_id);
-                window.location = '../send_msg/user';
-
-            },
-            gotocomdetail: function (cdetailid) {
-                window.location = '../company_detail/' + cdetailid;
+            }
+            ,
+            activity: function () {
+                window.location = '../activity/' + this.$route.params.fr;
             }
         },
-        filters: {
-            strcat: function (value) {
-                return _.truncate(value, {'length': 50});
-            }
-        },
-        beforeCreate() {
-             axios({
-                method: 'get',
-                url: 'http://www.hivephing.com/constructback/api/get_token/' + this.$route.params.user_id ,
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            }).then(function (response) {
-                console.log(response.data);
-                localStorage.setItem('token',response.data.token);
 
-
-            });
-            console.log(localStorage.getItem('token'));
-            console.log(this.$route.params.id);
+        created()
+        {
             var self = this;
-            return axios({
+            axios({
                 method: 'get',
-                url: 'http://www.hivephing.com/constructback/api/dashboard/proposals/detail/' + this.$route.params.id + '?token=' + localStorage.getItem('token'),
-                headers: {
-                    'Content-type': 'application/json'
-                }
+                url: 'http://www.hivephing.com/constructback/api/get_token/' + this.$route.params.user_id,
             }).then(function (response) {
-                //console.log(response.data.success);
-                console.log(response.data.requested_com);
 
-                self.rq_data=response.data.requested_com;
-                console.log('fff'+self.rq_data);
+                self.ftoken = response.data.token;
+                console.log(self.ftoken);
+                axios({
 
-                self.rq_count=response.data.rq_count;
-                if (response.data.data != '') {
-                    self.detail_data = response.data.data;
-                    if(self.detail_data.close=='1'){
-                        self.coro='closed';
-                    }else{
-                        self.coro='open';
-
+                        method: 'get',
+                        url: 'http://www.hivephing.com/constructback/api/dashboard/comdetail/' + self.$route.params.com_id + '?token=' + self.ftoken + '&postid=' + self.$route.params.postid,
+                        headers: {
+                            'Content-type': 'application/json'
+                        }
                     }
-                    if(self.detail_data.quotation_type == 1)
-                    {
-                        self.qtype='1';
-                        console.log(self.qtype);
-                    }
-                    else{
-                        self.qtype='0';
+                ).then(function (response) {
+                    self.com_data = response.data.data;
+                    self.website = response.data.data.website;
+                    self.facebook = response.data.data.facebook;
+                    self.rate = response.data.data.rate;
+                    self.check_invite = response.data.data.check;
+                    self.rate_sign = response.data.data.rate_sign;
+                    self.port = response.data.port;
+                    self.alert = response.data.data.confirm;
+                    console.log('ff'+response.data.data.confirm);
 
-                    }
                     console.log(response.data.data);
-                    self.message = response.data.tmessage;
-                    self.rmessage = response.data.fmessage;
-                    if (response.data.tmessage != '') {
-                        self.btm = 'dd';
-                    }
-                    if (response.data.data.full != 'full') {
-                        self.status = 'open';
-                    }
-                }
-                else {
-                    self.detail_data = '';
-                }
-                console.log(response.data.data);
 
+                });
             });
 
-        },
 
+            console.log(localStorage.getItem('postid'));
+            this.detail_type = localStorage.getItem('detail_type');
+            console.log('dt' + this.detail_type);
+            console.log(this.$route.params.fr);
+
+        }
     }
 </script>

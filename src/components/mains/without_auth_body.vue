@@ -37,10 +37,11 @@
     export default{
         data(){
             return {
-                ftype: 'detail'
+                ftype: 'detail',
             }
         },
        created(){
+
             this.ftype=
                 console.log(localStorage.getItem('token'));
         },
@@ -48,5 +49,6 @@
             'v-detail': Detail,
 
         },
+
     }
 </script>

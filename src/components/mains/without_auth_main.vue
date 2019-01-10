@@ -84,10 +84,7 @@
             this.crnode('dist/js/vendors.bundle.js');
             this.crnode('dist/js/scripts.bundle.js');
             this.crnode('dist/js/tools.js');
-
             console.log(this.$store.state.token);
-
-            var self = this;
 //            axios({
 //                method: 'post',
 //                url: 'http://www.hivephing.com/constructback/api/dashboard',
@@ -109,7 +106,5 @@
             this.$lang.setLang('mm');
 
         }
-
-
     }
 </script>
